@@ -17,12 +17,12 @@ const getMovies = (req, res, next) => {
 /*
   # создаёт фильм с переданными в теле
   # country, director, duration, year, description, image,
-  trailer, nameRU, nameEN и thumbnail, movieId
+  trailerLink, nameRU, nameEN и thumbnail, movieId
  */
 const createMovie = (req, res, next) => {
   const {
     country, director, duration, year, description, image,
-    trailer, nameRU, nameEN, thumbnail, movieId,
+    trailerLink, nameRU, nameEN, thumbnail, movieId,
   } = req.body;
   return Movie
     .create({
@@ -32,12 +32,12 @@ const createMovie = (req, res, next) => {
       year,
       description,
       image,
-      trailer,
+      trailerLink,
       nameRU,
       nameEN,
       thumbnail,
       movieId,
-      owner: req.user,
+      owner: req.user._id,
     })
     .then((data) => res.status(200).send(data))
     .catch((err) => {
