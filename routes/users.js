@@ -5,6 +5,7 @@ const {
   Joi,
 } = require('celebrate');
 
+
 const {
   getUsers,
   updateUser,
@@ -19,7 +20,7 @@ router.get('/me', getUserPrifile);
 router.patch('/me', celebrate({
   body: Joi.object().keys({
     name: Joi.string().required().min(2).max(15),
-    about: Joi.string().required().max(30),
+    email: Joi.string().email(),
   }),
 }), updateUser);
 
