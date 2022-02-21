@@ -10,7 +10,7 @@ const cors = require('cors');
 
 const usersRoutes = require('./users');
 
-const cardsRoutes = require('./cards');
+const moviesRoutes = require('./movies');
 
 const NotFoundError = require('../errors/not-found-error');
 
@@ -30,7 +30,7 @@ const validateURL = (value) => {
 };
 
 router.use(cors({
-  origin: ['http://localhost:3000', 'http://alexbaev15.nomoredomains.xyz', 'https://alexbaev15.nomoredomains.xyz'], // домен фронтенда
+  origin: ['http://localhost:3000', 'http://alexbaev.nomoredomains.xyz', 'https://alexbaev.nomoredomains.xyz'], // домен фронтенда
   credentials: true, // для того, чтобы CORS поддерживал кроссдоменные куки
 }));
 
@@ -63,7 +63,7 @@ router.get('/secured', secured);
 
 router.use('/users', usersRoutes);
 
-router.use('/cards', cardsRoutes);
+router.use('/movies', moviesRoutes);
 
 router.use((req, res, next) => {
   next(new NotFoundError());

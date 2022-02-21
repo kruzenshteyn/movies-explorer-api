@@ -12,8 +12,8 @@ const IncorrectData = require('../errors/incorrect-data');
 const { NODE_ENV, JWT_SECRET } = process.env;
 
 /*
-400 — Переданы некорректные данные при создании пользователя.
-500 — Ошибка по умолчанию.
+  # возвращает информацию о пользователях. Тестирование
+  GET /users/
 */
 const getUsers = (req, res, next) => {
   User
@@ -60,29 +60,9 @@ const createUser = (req, res, next) => {
 };
 
 /*
-404 — Пользователь по указанному _id не найден.
-500 — Ошибка по умолчанию.
+  # возвращает информацию о пользователе (email и имя)
+  GET /users/me
 */
-const getUser = (req, res, next) => {
-  const { id } = req.params;
-
-  return User
-    .findById(id)
-    .then((user) => {
-      if (user) res.status(200).send(user);
-      else {
-        throw (new NotFoundError('Запрашиваемый пользователь не найден'));
-      }
-    })
-    .catch((err) => {
-      if (err.name === 'CastError') {
-        next(new IncorrectData('Переданы некорректные данные при обновлении профиля'));
-      } else {
-        next(err);
-      }
-    });
-};
-
 const getUserPrifile = (req, res, next) => {
   User
     .findById(req.user._id)
@@ -102,9 +82,8 @@ const getUserPrifile = (req, res, next) => {
 };
 
 /*
-400 — Переданы некорректные данные при обновлении профиля.
-404 — Пользователь с указанным _id не найден.
-500 — Ошибка по умолчанию.
+  # обновляет информацию о пользователе (email и имя)
+  PATCH /users/me
 */
 const updateUser = (req, res, next) => {
   User
@@ -113,35 +92,6 @@ const updateUser = (req, res, next) => {
       {
         name: req.body.name,
         about: req.body.about,
-      },
-      { new: true, runValidators: true },
-    )
-    .then((user) => {
-      if (user) res.status(200).send(user);
-      else {
-        throw (new NotFoundError('Запрашиваемый пользователь не найден'));
-      }
-    })
-    .catch((err) => {
-      if (err.name === 'ValidationError' || err.name === 'CastError') {
-        next(new IncorrectData('Переданы некорректные данные при обновлении профиля'));
-      } else {
-        next(err);
-      }
-    });
-};
-
-/*
-  400 — Переданы некорректные данные при обновлении профиля.
-  404 — Пользователь с указанным _id не найден.
-  500 — Ошибка по умолчанию.
-*/
-const updateAvatar = (req, res, next) => {
-  User
-    .findByIdAndUpdate(
-      req.user._id,
-      {
-        avatar: req.body.avatar,
       },
       { new: true, runValidators: true },
     )
@@ -180,11 +130,9 @@ const secured = (req, res, next) => {
 };
 
 module.exports = {
-  getUser,
   getUsers,
   createUser,
   updateUser,
-  updateAvatar,
   login,
   signOut,
   secured,
