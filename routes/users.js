@@ -5,7 +5,6 @@ const {
   Joi,
 } = require('celebrate');
 
-
 const {
   getUsers,
   updateUser,
