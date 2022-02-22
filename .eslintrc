@@ -1,0 +1,29 @@
+{
+    "env": {
+        "browser": true,
+        "es2021": true,
+        "node": true,
+        "commonjs": true
+    },
+    "extends": [
+        "eslint:recommended",
+        "airbnb-base"
+    ],
+    "parserOptions": {
+        "ecmaFeatures": {
+            "jsx": true
+        },
+        "ecmaVersion": 13,
+        "sourceType": "module"
+    },
+    "plugins": [
+
+    ],
+    "rules": {
+      "no-console": "off",
+      "no-underscore-dangle": [1, { "allow": ["_id"] }],
+      "eslint-disable": "off",
+      "eslint-disable-line": "off",
+      "eslint-disable-next-line": "off"
+    }
+}
