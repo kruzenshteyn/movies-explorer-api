@@ -57,8 +57,10 @@ router.post('/signin', celebrate({
   }),
 }), login);
 
-router.get('/signout', signOut);
 router.use(auth);
+
+router.get('/signout', signOut);
+
 router.get('/secured', secured);
 
 router.use('/users', usersRoutes);

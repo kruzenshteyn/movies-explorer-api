@@ -1,8 +1,8 @@
 require('dotenv').config();
 
 const express = require('express');
-// Слушаем 3000 порт
-const { PORT = 3000 } = process.env;
+
+const { PORT, NODE_ENV, DB_ADDRESS } = process.env;
 
 const bodyParser = require('body-parser');
 
@@ -12,7 +12,6 @@ const cookieParser = require('cookie-parser');
 const {
   errors,
 } = require('celebrate');
-const { DB_ADDRESS } = require('./config');
 
 const { requestLogger, errorLogger } = require('./middlewares/logger');
 
@@ -21,7 +20,7 @@ const errorHandler = require('./middlewares/error-handler');
 
 const app = express();
 
-mongoose.connect(DB_ADDRESS, {
+mongoose.connect(NODE_ENV === 'production' ? DB_ADDRESS : 'mongodb://localhost:27017/moviesdb', {
 });
 
 app.use(bodyParser.json());

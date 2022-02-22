@@ -21,6 +21,9 @@
     ],
     "rules": {
       "no-console": "off",
-      "no-underscore-dangle": [1, { "allow": ["_id"] }]
+      "no-underscore-dangle": [1, { "allow": ["_id"] }],
+      "eslint-disable": "off",
+      "eslint-disable-line": "off",
+      "eslint-disable-next-line": "off"
     }
 }
