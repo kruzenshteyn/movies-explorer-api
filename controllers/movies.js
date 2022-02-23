@@ -58,8 +58,8 @@ const deleteMovie = (req, res, next) => {
     .orFail(() => {
       throw (new NotFoundError('Фильм с указанным _id не найдена'));
     })
-    .then((card) => {
-      if (card.owner.equals(req.user._id)) {
+    .then((item) => {
+      if (item.owner.equals(req.user._id)) {
         Movie.deleteOne({ _id: req.params.id })
           .then((deletedItem) => {
             res.send({ deletedCard: deletedItem });
