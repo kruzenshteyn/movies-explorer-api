@@ -32,7 +32,7 @@ app.use(errorLogger); // подключаем логгер ошибок
 app.use(errors());
 app.use(errorHandler);
 
-app.listen(PORT, () => {
+app.listen(NODE_ENV === 'production' ? PORT : 3001, () => {
   // Если всё работает, консоль покажет, какой порт приложение слушает
-  console.log(`App listening on port ${PORT}`);
+  console.log(`App listening on port ${NODE_ENV === 'production' ? PORT : 3001}`);
 });

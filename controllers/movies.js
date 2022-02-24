@@ -60,13 +60,12 @@ const deleteMovie = (req, res, next) => {
     })
     .then((item) => {
       if (item.owner.equals(req.user._id)) {
-        Movie.deleteOne({ _id: req.params.id })
+        return Movie.deleteOne({ _id: req.params.id })
           .then((deletedItem) => {
             res.send({ deletedCard: deletedItem });
           });
-      } else {
-        throw (new ForbiddenError('Нет доступа для удаления данного фильма'));
       }
+      throw (new ForbiddenError('Нет доступа для удаления данного фильма'));
     })
     .catch((err) => {
       if (err.name === 'ValidationError' || err.name === 'CastError') {

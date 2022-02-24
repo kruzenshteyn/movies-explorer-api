@@ -87,23 +87,31 @@ const getUserPrifile = (req, res, next) => {
 */
 const updateUser = (req, res, next) => {
   User
-    .findByIdAndUpdate(
-      req.user._id,
-      {
-        name: req.body.name,
-        email: req.body.email,
-      },
-      { new: true, runValidators: true },
-    )
+    .findById(req.user._id)
+    .orFail(new NotFoundError('Запрашиваемый пользователь не найден'))
     .then((user) => {
-      if (user) res.status(200).send(user);
-      else {
-        throw (new NotFoundError('Запрашиваемый пользователь не найден'));
+      if (user.email !== req.body.email) {
+        return User
+          .findByIdAndUpdate(
+            req.user._id,
+            {
+              name: req.body.name,
+              email: req.body.email,
+            },
+            { new: true, runValidators: true },
+          )
+          .then((data) => {
+            /* Так как пользователь найден ранее, можно не проверять результат поиска */
+            res.status(200).send(data);
+          });
       }
+      throw (new IncorrectData('Переданы некорректные данные при обновлении профиля'));
     })
     .catch((err) => {
       if (err.name === 'ValidationError' || err.name === 'CastError') {
         next(new IncorrectData('Переданы некорректные данные при обновлении профиля'));
+      } else if (err.code === 11000) {
+        next(new ConflictError('Пользователь с таким email уже существует'));
       } else {
         next(err);
       }
