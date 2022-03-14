@@ -56,14 +56,10 @@ const movieSchema = new mongoose.Schema({
   nameRU: {
     type: String,
     required: true,
-    minlength: 2,
-    maxlength: 30,
   }, // название фильма на русском языке. Обязательное поле-строка.
   nameEN: {
     type: String,
     required: true,
-    minlength: 2,
-    maxlength: 30,
   }, // название фильма на английском языке. Обязательное поле-строка.
   createdAt: {
     type: Date,
