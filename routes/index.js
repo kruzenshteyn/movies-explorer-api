@@ -30,7 +30,7 @@ const validateURL = (value) => {
 };
 
 router.use(cors({
-  origin: ['http://localhost:3000', 'http://alexbaev.nomoredomains.xyz', 'https://alexbaev.nomoredomains.xyz'], // домен фронтенда
+  origin: ['http://localhost:3000', 'http://alexbaev.nomoredomains.work', 'https://alexbaev.nomoredomains.work'], // домен фронтенда
   credentials: true, // для того, чтобы CORS поддерживал кроссдоменные куки
 }));
 
